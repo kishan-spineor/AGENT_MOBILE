@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+tinydb
+cryptography
+transformers
+langchain
+langchain-huggingface
+torch
+python-dotenv
+llama-cpp-python
+langchain-community

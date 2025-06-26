@@ -1,0 +1,5 @@
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp
+mkdir build && cd build     (install cmake)   sudo apt install libcurl4-openssl-dev
+cmake ..
+make -j4
