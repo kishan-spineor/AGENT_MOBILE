@@ -1,6 +1,6 @@
 # === LLM + Agent Setup ===
 
-from fastapi import FastAPI
+from fastapi import FastAPI,Body
 from pydantic import BaseModel
 from typing import Union
 from vault import add_account, get_account, update_account, delete_account,add_reminder,delete_reminder,get_reminders
@@ -134,21 +134,11 @@ def delete_reminder_tool(input: Union[str, dict]):
 
 
 # === Step 2: Register Tools ===
-tools = [get_password, add_password, update_password,delete_password,delete_reminder_tool,list_reminders,add_reminders]
+tools = [get_password,add_password,update_password,delete_password,delete_reminder_tool,list_reminders,add_reminders]
 
 
 # === Step 3: Initialize LLM ===
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
-
-llm2 = LlamaCpp(
-    model_path="tinyllama-1.1b-chat-v1.0.Q3_K_L.gguf",
-    n_ctx=512,
-    n_threads=4,
-    temperature=0.7,
-
-)
-
-
 
 
 
@@ -179,3 +169,11 @@ def ask_agent(user_input: UserInput):
     # response = agent_executor.run(user_input)
     return {"response": response}
 
+
+class VerifyRequest(BaseModel):
+    id: int
+
+@app.post("/verify")
+def home(id:VerifyRequest):
+    print("hello")
+    return {"id":id}

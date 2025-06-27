@@ -174,3 +174,9 @@ def ask_agent(user_input: UserInput):
     # response = agent_executor.run(user_input)
     return {"response": response}
 
+@app.post("/verify")
+def home(id:int):
+    print("hello")
+    return {"id":id}
+
+#uvicorn main:app --reload

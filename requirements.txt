@@ -9,3 +9,4 @@ torch
 python-dotenv
 llama-cpp-python
 langchain-community
+langchain-google-genai

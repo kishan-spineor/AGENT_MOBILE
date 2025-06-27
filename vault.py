@@ -67,9 +67,10 @@ def delete_account(platform: str, username: str):
     db.remove((Vault.platform == platform.lower()) & (Vault.username == username.lower()))
     return {"message": "Account deleted"}
 
-def add_reminder(title, datetime, note="", repeat="none"):
+def add_reminder(title, datetime, name="", note="", repeat="none"):
     db.insert({
         "type": "reminder",
+        "name": name.lower(),
         "title": title,
         "datetime": datetime,
         "note": note,
@@ -77,8 +78,15 @@ def add_reminder(title, datetime, note="", repeat="none"):
     })
     return "Reminder added."
 
-def get_reminders():
-    return db.search(Query().type == "reminder")
+
+
+
+def get_reminders(name: str = None):
+    Reminder = Query()
+    if name:
+        return db.search((Reminder.type == "reminder") & (Reminder.name == name.lower()))
+    return db.search(Reminder.type == "reminder")
+
 
 def delete_reminder(title):
     result = db.remove((Query().type == "reminder") & (Query().title == title))
